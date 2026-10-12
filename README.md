@@ -33,15 +33,35 @@ This repository starts with lightweight documentation rather than a specific app
 
 ## Check documentation links
 
-Run the [offline Markdown link checker](scripts/check_md_links.py) with Python 3:
+Use the [offline Markdown link checker](scripts/check_md_links.py) to find missing local links and image targets in documentation. It uses Python 3's standard library, so no extra packages, internet connection, or GitHub token are required.
 
+### One-command quick start
+
+From the repository root, run:
 
 ~~~sh
 python scripts/check_md_links.py
-python -m unittest discover -s tests -v
 ~~~
 
-No third-party packages, network requests, or credentials are required. The checker reports broken relative links and returns a nonzero exit code if any are missing. An optional "--root" argument selects a different project directory.
+A successful scan displays a message such as:
+
+~~~text
+OK: checked 3 Markdown file(s); no broken local links.
+~~~
+
+For a broken link, the checker prints the affected file, line number, and target, for example:
+
+~~~text
+README.md:12: missing local link: missing-guide.md
+~~~
+
+The command returns exit code **0** when local links exist and **1** when a target is missing. It does not test whether external web links are reachable.
+
+To check a different folder, run `python scripts/check_md_links.py --root path/to/project`. To run the automated checks, use:
+
+~~~sh
+python -m unittest discover -s tests -v
+~~~
 
 For supported formats and limitations, see the [checker design](docs/link-checker-design.md).
 
@@ -51,11 +71,9 @@ Documentation improvements, practical examples, and small reusable collaboration
 
 ## Looking for contributors
 
-**First collaboration opportunity:** [Build an offline Markdown link checker (issue #2)](https://github.com/HFAsif/WeWorkTogether/issues/2).
+Our first feature, the offline Markdown checker, was implemented and merged in [PR #3](https://github.com/HFAsif/WeWorkTogether/pull/3). The beginner-friendly documentation ideas and formatting were contributed by [HFImran in PR #4](https://github.com/HFAsif/WeWorkTogether/pull/4); this guide connects those usability goals to a tested command.
 
-A contributor can help build a small Python 3 tool to check local documentation links without external dependencies. The [draft pull request #3](https://github.com/HFAsif/WeWorkTogether/pull/3) already includes a design and eight acceptance tests. The checker implementation, CI workflow, documentation, and genuine collaborative review are still needed.
-
-If interested, comment on issue #2 with what you would like to work on. No prior relationship with the maintainer is necessary. Please read [CONTRIBUTING.md](CONTRIBUTING.md) and use a fork or coordinate branch access before changing code. Actual contributions will be credited accurately.
+Contributions and real improvements remain welcome. Before proposing a change, read [CONTRIBUTING.md](CONTRIBUTING.md), review existing issues, and open a focused PR describing what you verified.
 
 ## Security
 
@@ -63,10 +81,11 @@ If you discover a sensitive vulnerability, avoid posting exploit details or cred
 
 ## Beginner-Friendly Usage
 
-The tool should be simple enough for beginners.
+The core usability requirements contributed in [HFImran's PR #4](https://github.com/HFAsif/WeWorkTogether/pull/4) are:
 
-Users should be able to check links with one command.
+- Simple enough for a beginner: open a terminal in the repository folder and run **one command**.
+- Detect broken relative Markdown links automatically.
+- Show clear errors telling the user which file, line, and target are broken.
+- Work without installing additional Python packages.
 
-Broken links should display clear error messages.
-
-No extra software packages should be required.
+The **One-command quick start** above demonstrates these requirements with the checker implemented in PR #3.

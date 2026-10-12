@@ -51,10 +51,10 @@ python scripts/check_md_links.py --root <temporary-directory>
 
 Temporary fixture directories contain Markdown files with valid and invalid links. Tests assert the exit code and require broken-link output to include its source Markdown filename and missing path. Tests use only the standard library and do not contact external services.
 
-These tests deliberately precede the checker implementation, so a missing-script failure on this **draft** branch is expected until the collaborator implements it.
+The checker implementation and 11 standard-library tests have now been added to this **draft** branch. They have been run locally successfully; GitHub Actions status must be verified separately before merging.
 
 ## Work split and honest co-authorship
 
-HFAsif prepared the issue/specification and first acceptance tests. A real collaborator can implement the checker and CI workflow and improve tests. The two should review a shared change together, including at least one substantive fix, before labeling any *single commit* as co-authored. Credit a collaborator using the GitHub-linked/noreply email they provide privately. Do not add a co-author trailer solely to obtain an achievement.
+HFAsif prepared the issue/specification, built the Python checker, added CI, and expanded the test suite. HFImran independently contributed the beginner-friendly documentation in [PR #4](https://github.com/HFAsif/WeWorkTogether/pull/4) and was asked to improve Markdown heading formatting. The two can collaboratively refine the merged end-user documentation and implement improvements. Only credit a single commit as co-authored if both actually contributed to that commit. Use the collaborator's GitHub-linked/noreply identity with their approval and do not fabricate credit for an achievement.
 
 Keep the draft PR unmerged until implementation, reproducible tests, and attribution have been reviewed.

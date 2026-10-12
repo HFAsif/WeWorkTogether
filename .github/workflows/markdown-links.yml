@@ -1,0 +1,33 @@
+name: Check Markdown links
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.md'
+      - 'scripts/check_md_links.py'
+      - 'tests/**'
+      - '.github/workflows/markdown-links.yml'
+  pull_request:
+    paths:
+      - '**/*.md'
+      - 'scripts/check_md_links.py'
+      - 'tests/**'
+      - '.github/workflows/markdown-links.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  markdown-links:
+    name: Offline link checker and unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run local link checker
+        run: python scripts/check_md_links.py
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v

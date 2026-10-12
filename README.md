@@ -46,3 +46,13 @@ If interested, comment on issue #2 with what you would like to work on. No prior
 ## Security
 
 If you discover a sensitive vulnerability, avoid posting exploit details or credentials in a public issue. Contact the maintainer through an appropriate private channel.
+
+Beginner-Friendly Usage
+
+The tool should be simple enough for beginners.
+
+Users should be able to check links with one command.
+
+Broken links should display clear error messages.
+
+No extra software packages should be required.

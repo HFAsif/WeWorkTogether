@@ -31,6 +31,20 @@ This repository starts with lightweight documentation rather than a specific app
 - [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md) — change description and verification checklist.
 - [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE) — structured improvement proposals and bug reports.
 
+## Check documentation links
+
+Run the [offline Markdown link checker](scripts/check_md_links.py) with Python 3:
+
+
+~~~sh
+python scripts/check_md_links.py
+python -m unittest discover -s tests -v
+~~~
+
+No third-party packages, network requests, or credentials are required. The checker reports broken relative links and returns a nonzero exit code if any are missing. An optional "--root" argument selects a different project directory.
+
+For supported formats and limitations, see the [checker design](docs/link-checker-design.md).
+
 ## Contributing
 
 Documentation improvements, practical examples, and small reusable collaboration tools are welcome. Read [the contribution guide](CONTRIBUTING.md) before opening a pull request. Explain why the change is useful and how it was checked.

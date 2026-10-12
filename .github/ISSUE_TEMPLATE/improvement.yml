@@ -1,0 +1,32 @@
+name: Improvement proposal
+description: Suggest a concrete, useful improvement to the collaboration starter
+title: "[Improvement] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe a real need and a result another contributor can verify.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or need
+      description: What is difficult today, and for whom?
+      placeholder: Describe the observable problem.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+      description: What would success look like?
+      placeholder: List concrete acceptance criteria.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Context and evidence
+      description: Links, examples, screenshots without secrets, or reproduction notes.
+    validations:
+      required: false

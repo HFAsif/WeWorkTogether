@@ -124,5 +124,21 @@ class OfflineMarkdownLinksTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2)
 
 
+    def test_ignores_single_backtick_code_example(self):
+        self.write("README.md", "Example: `[fake](does-not-exist.md)`\n")
+        self.assert_valid()
+
+    def test_ignores_double_backtick_code_example(self):
+        self.write("README.md", "Use ``[fake](does-not-exist.md)`` and [real](guide.md)\n")
+        self.write("guide.md", "# Guide\n")
+        self.assert_valid()
+
+    def test_still_reports_real_link_beside_inline_code(self):
+        self.write("README.md", "`[fake](ignore-me.md)` [bad](really-missing.md)\n")
+        outcome = self.run_checker()
+        self.assertEqual(outcome.returncode, 1, outcome.stdout + outcome.stderr)
+        self.assertIn("really-missing.md", outcome.stdout)
+        self.assertNotIn("ignore-me.md", outcome.stdout)
+
 if __name__ == "__main__":
     unittest.main()

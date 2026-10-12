@@ -37,7 +37,7 @@ Recognize ordinary inline Markdown links and images:
 
 Resolve the path relative to the file containing the Markdown link. URL-decode local target paths and ignore query strings and fragments when testing existence. A target is valid if it names an existing file **or directory**.
 
-Ignore external links (`http://`, `https://`, `mailto:`, protocol-relative URLs such as `//example.org`) and fragment-only links (`#scope`). Do not treat link-looking text within fenced code blocks as links. Triple backtick fences must be supported; supporting tildes is a welcome extension.
+Ignore external links (`http://`, `https://`, `mailto:`, protocol-relative URLs such as `//example.org`) and fragment-only links (`#scope`). Do not treat link-looking text within fenced code blocks **or inline backtick code spans** as links. Triple backtick fences must be supported; supporting tildes is a welcome extension.
 
 Use simple, readable parsing for v1. Full CommonMark parsing, reference-link definitions, online link checks, and in-page heading validation are out of scope.
 

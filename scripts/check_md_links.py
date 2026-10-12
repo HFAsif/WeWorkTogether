@@ -18,6 +18,7 @@ INLINE_LINK = re.compile(
 )
 FENCE = re.compile(r'^ {0,3}(?P<marks>\x60{3,}|~{3,})')
 URI_SCHEME = re.compile(r'^[a-zA-Z][a-zA-Z0-9+.-]*:')
+INLINE_CODE_DELIMITERS = re.compile(r'\x60+')
 SKIP_DIRS = {'.git', '.venv', 'venv', '__pycache__', 'node_modules'}
 
 
@@ -30,6 +31,26 @@ def link_targets(line: str):
         target = unquote(urlsplit(raw).path)
         if target:
             yield raw, target
+
+
+def mask_inline_code(line: str) -> str:
+    """Blank out complete backtick code spans before finding Markdown links."""
+    runs = list(INLINE_CODE_DELIMITERS.finditer(line))
+    masked = list(line)
+    index = 0
+    while index < len(runs):
+        opening = runs[index]
+        closing = next((
+            j for j in range(index + 1, len(runs))
+            if len(runs[j].group()) == len(opening.group())
+        ), None)
+        if closing is None:
+            index += 1
+            continue
+        end = runs[closing].end()
+        masked[opening.start():end] = ' ' * (end - opening.start())
+        index = closing + 1
+    return ''.join(masked)
 
 
 def missing_links(markdown_file: Path):
@@ -53,7 +74,7 @@ def missing_links(markdown_file: Path):
                 continue
         if fenced_char is not None:
             continue
-        for raw, target in link_targets(line):
+        for raw, target in link_targets(mask_inline_code(line)):
             target_path = markdown_file.parent / Path(target)
             if not target_path.exists():
                 yield line_number, raw

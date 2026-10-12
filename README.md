@@ -26,13 +26,14 @@ This repository starts with lightweight documentation rather than a specific app
 
 ## Repository structure
 
-- `README.md` — project purpose and lightweight collaboration workflow.
-- `CONTRIBUTING.md` — contributor instructions (added in a follow-up change).
-- `.github/` — optional issue and pull-request templates.
+- [`README.md`](README.md) — project purpose and lightweight collaboration workflow.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) — detailed contributor instructions.
+- [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md) — change description and verification checklist.
+- [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE) — structured improvement proposals and bug reports.
 
 ## Contributing
 
-Documentation improvements, practical examples, and small reusable collaboration tools are welcome. Please describe why the change is useful and how it was checked.
+Documentation improvements, practical examples, and small reusable collaboration tools are welcome. Read [the contribution guide](CONTRIBUTING.md) before opening a pull request. Explain why the change is useful and how it was checked.
 
 ## Security
 

@@ -52,6 +52,7 @@ def mask_inline_code(line: str) -> str:
         index = closing + 1
     return ''.join(masked)
 
+
 def missing_links(markdown_file: Path):
     """Yield (source line, raw target) for broken local destinations."""
     try:

@@ -102,5 +102,27 @@ class OfflineMarkdownLinksTests(unittest.TestCase):
         self.assert_missing("assets/no-image.png")
 
 
+    def test_handles_tilde_fence(self):
+        self.write("README.md", "~~~md\n[not a real link](missing.md)\n~~~\n")
+        self.assert_valid()
+
+    def test_reports_multiple_broken_links(self):
+        self.write("README.md", "[a](bad-one.md)\n![b](bad-two.png)\n")
+        result = self.run_checker()
+        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+        self.assertIn("README.md:1", result.stdout)
+        self.assertIn("README.md:2", result.stdout)
+        self.assertIn("bad-one.md", result.stdout)
+        self.assertIn("bad-two.png", result.stdout)
+
+    def test_invalid_root(self):
+        path = self.root / "missing-dir"
+        result = subprocess.run(
+            [sys.executable, str(CHECKER), "--root", str(path)],
+            capture_output=True, text=True, timeout=15, check=False,
+        )
+        self.assertEqual(result.returncode, 2)
+
+
 if __name__ == "__main__":
     unittest.main()

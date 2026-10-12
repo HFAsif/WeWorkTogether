@@ -35,6 +35,14 @@ This repository starts with lightweight documentation rather than a specific app
 
 Documentation improvements, practical examples, and small reusable collaboration tools are welcome. Read [the contribution guide](CONTRIBUTING.md) before opening a pull request. Explain why the change is useful and how it was checked.
 
+## Looking for contributors
+
+**First collaboration opportunity:** [Build an offline Markdown link checker (issue #2)](https://github.com/HFAsif/WeWorkTogether/issues/2).
+
+A contributor can help build a small Python 3 tool to check local documentation links without external dependencies. The [draft pull request #3](https://github.com/HFAsif/WeWorkTogether/pull/3) already includes a design and eight acceptance tests. The checker implementation, CI workflow, documentation, and genuine collaborative review are still needed.
+
+If interested, comment on issue #2 with what you would like to work on. No prior relationship with the maintainer is necessary. Please read [CONTRIBUTING.md](CONTRIBUTING.md) and use a fork or coordinate branch access before changing code. Actual contributions will be credited accurately.
+
 ## Security
 
 If you discover a sensitive vulnerability, avoid posting exploit details or credentials in a public issue. Contact the maintainer through an appropriate private channel.

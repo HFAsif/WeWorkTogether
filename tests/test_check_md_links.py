@@ -125,7 +125,7 @@ class OfflineMarkdownLinksTests(unittest.TestCase):
 
 
     def test_ignores_single_backtick_code_example(self):
-        self.write("README.md", "Example: `[fake](does-not-exist.md)`\\n".replace("\\n", "\n"))
+        self.write("README.md", "Example: `[fake](does-not-exist.md)`\n")
         self.assert_valid()
 
     def test_ignores_double_backtick_code_example(self):

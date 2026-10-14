@@ -16,7 +16,7 @@ INLINE_LINK = re.compile(
     r'!?\[[^\]\n]*\]\(\s*(?:<(?P<angle>[^>\n]+)>|(?P<plain>[^\s)]+))'
     r'(?:\s+["\'][^"\']*["\'])?\s*\)'
 )
-FENCE = re.compile(r'^ {0,3}(?P<marks>\x60{3,}|~{3,})')
+FENCE = re.compile(r'^ {0,3}(?P<marks>\x60{3,}|~{3,})(?P<rest>.*)$')
 URI_SCHEME = re.compile(r'^[a-zA-Z][a-zA-Z0-9+.-]*:')
 INLINE_CODE_DELIMITERS = re.compile(r'\x60+')
 SKIP_DIRS = {'.git', '.venv', 'venv', '__pycache__', 'node_modules'}
@@ -69,7 +69,9 @@ def missing_links(markdown_file: Path):
             if fenced_char is None:
                 fenced_char, fenced_len = marks[0], len(marks)
                 continue
-            if marks[0] == fenced_char and len(marks) >= fenced_len:
+            # A real closing fence cannot have an info string.
+            if (marks[0] == fenced_char and len(marks) >= fenced_len
+                    and not match.group('rest').strip()):
                 fenced_char, fenced_len = None, 0
                 continue
         if fenced_char is not None:

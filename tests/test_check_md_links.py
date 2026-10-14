@@ -1,6 +1,6 @@
 """Contract tests for the offline Markdown link checker (issue #2).
 
-The CLI implementation is intentionally left to a real collaborator.
+The CLI and CI have been implemented; these tests guard supported behavior.
 Run after implementation: python -m unittest discover -s tests -v
 """
 
@@ -139,6 +139,28 @@ class OfflineMarkdownLinksTests(unittest.TestCase):
         self.assertEqual(outcome.returncode, 1, outcome.stdout + outcome.stderr)
         self.assertIn("really-missing.md", outcome.stdout)
         self.assertNotIn("ignore-me.md", outcome.stdout)
+
+    def test_code_fence_info_string_is_not_a_closing_fence(self):
+        self.write(
+            "README.md",
+            "~~~md\n~~~python\n[not a link](missing.md)\n~~~\n",
+        )
+        self.assert_valid()
+
+    def test_link_after_actual_fence_close_is_checked(self):
+        self.write(
+            "README.md",
+            "~~~md\n~~~python\n[inside](ignore.md)\n~~~\n[outside](missing.md)\n",
+        )
+        self.assert_missing("missing.md")
+
+    def test_long_fence_requires_equally_long_closing_fence(self):
+        self.write(
+            "README.md",
+            "~~~~md\n~~~\n[inside](missing.md)\n~~~~\n",
+        )
+        self.assert_valid()
+
 
 if __name__ == "__main__":
     unittest.main()
